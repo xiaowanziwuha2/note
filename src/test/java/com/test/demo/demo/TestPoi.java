@@ -18,31 +18,6 @@ import org.springframework.core.io.ClassPathResource;
 @SpringBootTest
 class TestPoi {
 
-	//@Test
-	void ExcelTemplateUtils_test1() throws Exception {
-		Map<String, Object> data = new HashMap<>();
-		
-		  Map<String, Object> cls = new HashMap<>(); 
-		  data.put("cls", cls);
-		  cls.put("headmaster", "李景文"); 
-		  cls.put("type", "文科班"); 
-		  List<Stu> stus = new ArrayList<>(); 
-		  for (int i = 0; i < 10; i++) 
-		  { Stu stu = new Stu();
-		  stu.setCode("code" + i); stu.setName("name" + i); stus.add(stu); }
-		  cls.put("students", stus);
-		 
-
-        String templatePath = "/templates/excel/Disposal_Report_Template_backup.xls";
-        
-        String resultFileName = File.createTempFile("ExcelTemplateUtils_test1", ".xls").getAbsolutePath();
-		System.out.println(resultFileName);
-		
-        //根据模板 templatePath 和数据 data 生成 excel 文件，写入 fos 流
-        byte[] bt = ExcelTemplateUtils.process(data, templatePath);
-        FileUtils.writeByteArrayToFile(new File(resultFileName), bt);
-	}
-	
 	@Test
 	void ExcelTemplate_test1() throws IOException {
 		ClassPathResource resource = new ClassPathResource("/templates/excel/Disposal_Report_ExcelTemplate.xls");
