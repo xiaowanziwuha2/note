@@ -1,8 +1,6 @@
 package com.test.demo.demo;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,7 +52,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @Email: 253684597@qq.com
  */
 public class ExcelTemplate {
-	private String path;
+	private InputStream inputStream;
 
 	private Workbook workbook;
 
@@ -71,32 +69,27 @@ public class ExcelTemplate {
 	/**
 	 * 通过模板Excel的路径初始化
 	 */
-	public ExcelTemplate(String path) {
-		this.path = path;
+	public ExcelTemplate(InputStream inputStream) {
+		this.inputStream = inputStream;
 		init();
 	}
 
 	private void init() {
-		File file = new File(path);
-		if (file.exists() && (path == null || (!path.endsWith(".xlsx") && !path.endsWith(".xls")))) {
-			ex = new IOException("错误的文件格式");
-		} else {
-			try (InputStream is = new FileInputStream(file)) {
-				workbook = WorkbookFactory.create(is);
-				sheets = new Sheet[workbook.getNumberOfSheets()];
-				for (int i = 0; i < sheets.length; i++) {
-					sheets[i] = workbook.getSheetAt(i);
-				}
-				if (sheets.length > 0)
-					sheet = sheets[0];
-				sheet.setForceFormulaRecalculation(true);
-			} catch (EncryptedDocumentException e) {
-				ex = e;
-			} catch (IOException e) {
-				ex = e;
-			} catch (InvalidFormatException e) {
-				ex = e;
+		try (InputStream is = inputStream) {
+			workbook = WorkbookFactory.create(is);
+			sheets = new Sheet[workbook.getNumberOfSheets()];
+			for (int i = 0; i < sheets.length; i++) {
+				sheets[i] = workbook.getSheetAt(i);
 			}
+			if (sheets.length > 0)
+				sheet = sheets[0];
+			sheet.setForceFormulaRecalculation(true);
+		} catch (EncryptedDocumentException e) {
+			ex = e;
+		} catch (IOException e) {
+			ex = e;
+		} catch (InvalidFormatException e) {
+			ex = e;
 		}
 	}
 
@@ -1589,27 +1582,4 @@ public class ExcelTemplate {
 						Integer.parseInt(sourceSheetPicture.get("pictureType").toString())));
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (o == null)
-			return false;
-		if (o == this)
-			return true;
-		if (!(o instanceof ExcelTemplate))
-			return false;
-		if (examine() ^ ((ExcelTemplate) o).examine())
-			return false;
-		return Objects.equals(path, ((ExcelTemplate) o).path);
-	}
-
-	@Override
-	public int hashCode() {
-		int hash = Objects.hashCode(path);
-		return hash >>> 16 ^ hash;
-	}
-
-	@Override
-	public String toString() {
-		return "ExcelTemplate from " + path + " is " + (examine() ? "effective" : "invalid");
-	}
 }

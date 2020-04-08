@@ -2,29 +2,24 @@ package com.test.demo.demo;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @SpringBootTest
 class TestPoi {
 
 	@Test
 	void ExcelTemplate_test1() throws IOException {
-		ClassPathResource resource = new ClassPathResource("/templates/excel/Disposal_Report_ExcelTemplate.xls");
-		String filePath = resource.getFile().getAbsolutePath();
+		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+		Resource resource = resolver.getResource("/templates/excel/Disposal_Report_ExcelTemplate.xls");
 		
 		// 加载模板表格
-		ExcelTemplate excel = new ExcelTemplate(filePath);
+		ExcelTemplate excel = new ExcelTemplate(resource.getInputStream());
 		
 		// 验证是否通过
 		if (!excel.examine())
