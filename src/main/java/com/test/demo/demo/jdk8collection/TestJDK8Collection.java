@@ -9,6 +9,7 @@ class TestJDK8Collection {
 	}
 	
 	public static void testRemoveElement() {
+		List<String> aa = new ArrayList<String>();
 		List<String> list = new ArrayList<String>();
 		list.add("a");
 		list.add("b");
@@ -19,4 +20,5 @@ class TestJDK8Collection {
 		
 		list.forEach(System.out::println);
 	}
+	
 }
