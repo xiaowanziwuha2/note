@@ -18,7 +18,7 @@ class TestPoi {
 	@Test
 	void ExcelTemplate_test1() throws IOException {
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-		Resource resource = resolver.getResource("/templates/excel/Disposal_Report_ExcelTemplate.xls");
+		Resource resource = resolver.getResource("/templates/excel/Disposal_Report_ExcelTemplate_vba.xls");
 		
 		// 加载模板表格
 		ExcelTemplate excel = new ExcelTemplate(resource.getInputStream());
@@ -54,7 +54,7 @@ class TestPoi {
         LinkedList<String> row1 = new LinkedList<>();
         row1.add("1");
         row1.add("123");
-        row1.add("张三");
+        row1.add("张三 aaaaaaaaaaa bbbbbbbbbbbbbb cccccccccc ddddddddddd eeeeeeee");
         row1.add("2019/9/10");
         row1.add("2019/9/10");
         row1.add("2019/9/10");
@@ -71,7 +71,7 @@ class TestPoi {
         row2.add("2019/9/11");
         row2.add("2019/9/11");
         row2.add("6");
-        row2.add("临时突发状况");
+        row2.add("临时突发状况 aaaaaaaaaaa bbbbbbbbbbbbbb cccccccccc ddddddddddd eeeeeeee");
         // 把第二个行区域row2添加进入rows
         rows.put(2,row2);
 
