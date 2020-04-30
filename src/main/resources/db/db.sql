@@ -1,0 +1,1 @@
+select * from ${db.env.schema}.table_name;

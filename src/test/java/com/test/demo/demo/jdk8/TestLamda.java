@@ -29,19 +29,6 @@ public class TestLamda {
 		list.removeIf(word -> word.equals("f"));
 		
 		list.forEach(System.out::println);
-		String iso8869_1 = "ISO8859-1";
-		String utf_8 = "UTF-8";
-		String name= "你好.docx";
-		System.out.println("name:" + name);
-		String iso = new String(name.getBytes(iso8869_1), iso8869_1);
-		System.out.println("iso:" + iso);
-		
-		 if(name.equals(iso))
-	     {
-	       name = new String(name.getBytes(iso8869_1),utf_8);
-	       System.out.println("ISO8859-1 change to utf-8");
-	     }
-		 System.out.println(name);
 	}
 	
 	/**
@@ -61,6 +48,7 @@ public class TestLamda {
 		c1.compareTo(2);
 		//method2
 		Comparable<Integer> c2 = (x) -> Integer.compare(x, 100);
+		Comparable<Integer> c3 = (x) -> Integer.compare(x, 100);
 		c2.compareTo(2);
 	}
 	
