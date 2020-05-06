@@ -79,7 +79,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
+			<!-- 1. 添加maven resourcse插件，定义占位符 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -93,10 +93,11 @@
 			</plugin>
 		</plugins>
 		
+		<!-- 2. 定义环境对应的properties文件 -->
 		<filters>
             <filter>src/main/resources/config/${env}.properties</filter>
         </filters> 
-        
+        <!-- 3. 需要打包处理的文件-->
          <resources>
             <resource>
                 <filtering>true</filtering>
@@ -109,7 +110,7 @@
             </resource>
         </resources>
 	</build>
-
+	<!-- 4. 添加环境profile-->
 	<profiles>
         <profile>
             <id>dev</id>
